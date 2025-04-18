@@ -32,13 +32,17 @@ public class Main {
                 case 3:
                     drivers.add(createDriver(scan));
                     break;
+                
+                case 4: 
+                    showCars(cars);
+                    break;
             
                 default:
                     System.out.println("Digite uma opção disponível.");;
             }
 
             System.out.println();
-        } while (userChoice != 4);
+        } while (userChoice != 0);
 
         scan.close();
     }
@@ -48,7 +52,8 @@ public class Main {
         System.out.println("===== Garagem =====");
         System.out.println("(1) Cadastrar carro");
         System.out.println("(2) Cadastrar motor");
-        System.out.println("(3) Cadastrar motorista");
+        System.out.println("(3) Cadastrar condutor");
+        System.out.println("(4) Listar carros");
         System.out.println("(0) Sair");
         System.out.print("Digite a opção: ");
     }   
@@ -118,23 +123,30 @@ public class Main {
 
     // Function called to select a engine while creating a car
     public static Engine selectEngine(Scanner scan, ArrayList<Engine> engines) {
-        Engine engine;
+        Integer userChoice;
 
         if(!engines.isEmpty()) {
+            System.out.println("- (1) Adicionar motor");
+
             for (int i = 0; i < engines.size(); i++) {
-                System.out.printf("- (%d) Motor %s, %d cv\n", i + 1, engines.get(i).getType(), engines.get(i).getPotency());
+                System.out.printf("- (%d) Motor %s, %d cv\n", i + 2, engines.get(i).getType(), engines.get(i).getPotency());
             }
 
             System.out.print("Digite a opção: ");
-            engine = engines.get(scan.nextInt() - 1);
+            userChoice = scan.nextInt();
+
+            if(userChoice == 0) { // Se quiser adicionar motor, então retorna-se um objeto criado na função 'createEngine'
+                return createEngine(scan);
+            } else { // Senão retorna o motor relacionado com a opção que o usuário escolheu
+                return engines.get(userChoice - 1);
+            }
+
         } else {
             System.out.println("Você não possuí nenhum motor cadastrado. Adicione para continuar...");
             engines.add(createEngine(scan));
 
-            engine = engines.get(0);
+            return engines.get(0);
         }
-
-        return engine;
     }
 
     // Function called to select a driver while creating a car
@@ -142,21 +154,43 @@ public class Main {
         Driver driver;
         Integer userChoice;
 
-        for (int i = 0; i < drivers.size(); i++) {
-            System.out.printf("- (%d) %s\n", i + 1, drivers.get(i).getName());
+        if(drivers.isEmpty()) {
+            System.out.println("No momento você não possue nenhum condutor cadastrado...");
         }
 
         System.out.println("- (0) Continuar sem condutor");
+        System.out.println("- (1) Adicionar condutor");
+        
+        for (int i = 0; i < drivers.size(); i++) {
+            System.out.printf("- (%d) %s\n", i + 2, drivers.get(i).getName());
+        }
 
         System.out.print("Digite a opção: ");
         userChoice = scan.nextInt();
 
         if(userChoice == 0) {
             return null;
+        } else if(userChoice == 1) {
+            return createDriver(scan);
         } else {
             driver = drivers.get(scan.nextInt() - 1);
+            return driver;
         }
 
-        return driver;
+    }
+
+    public static void showCars(ArrayList<Car> cars) {
+        if(!cars.isEmpty()) {
+            for (int i = 0; i < cars.size(); i++) {
+                System.out.printf("*** Carro [%d] ***\n", i + 1);
+                System.out.println(cars.get(i).toString());
+
+                if(i != cars.size() - 1) { // Último carro na lista
+                    System.out.println();
+                }
+            }
+        } else {
+            System.out.println("Nenhum carro está cadastrado.");
+        }
     }
 }

@@ -23,6 +23,6 @@ public class Engine {
 
     public String toString() {
         return "Tipo: " + type + "\n" +
-               "Potência: " + potency+ "\n";
+               "Potência: " + potency;
     }
 }

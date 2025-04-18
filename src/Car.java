@@ -65,11 +65,11 @@ public class Car {
                 "Modelo: " + this.model + "\n" +
                 "Placa: " + this.plate + "\n" +
                 "Tipo do motor " + this.engine.getType() + "\n" +
-                "Potência do motor: " + this.engine.getPotency() + "\n" +
+                "Potência do motor: " + this.engine.getPotency() +
 
-                ((this.driver == null) ? "" : 
+                ((this.driver == null) ? "" : "\n" + 
                 "Nome do motorista: " + this.driver.getName() + "\n" +
-                "Carteira de motorista CNH: " + this.driver.getDriverLicense() + "\n");
+                "Carteira de motorista CNH: " + this.driver.getDriverLicense());
         
     }
 }
