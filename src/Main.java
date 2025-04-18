@@ -26,11 +26,11 @@ public class Main {
                     break;
                 
                 case 2:
-                    engines.add(createEngine(scan));
+                    createEngine(scan, engines);
                     break;
     
                 case 3:
-                    drivers.add(createDriver(scan));
+                    createDriver(scan, drivers);
                     break;
                 
                 case 4: 
@@ -95,7 +95,7 @@ public class Main {
     }
 
     // Function to build read user informations and create a new engine
-    public static Engine createEngine(Scanner scan) {
+    public static Engine createEngine(Scanner scan, ArrayList<Engine> engines) {
         String type;
         Integer potency;
 
@@ -106,12 +106,13 @@ public class Main {
         potency = scan.nextInt();
 
         Engine newEngine = new Engine(type, potency);
+        engines.add(newEngine);
 
         return newEngine;
     }
 
     // Function to build read user informations and create a new driver user
-    public static Driver createDriver(Scanner scan) {
+    public static Driver createDriver(Scanner scan, ArrayList<Driver> drivers) {
         String name;
         Integer driverLicense;
 
@@ -122,6 +123,7 @@ public class Main {
         driverLicense = scan.nextInt();
 
         Driver newDriver = new Driver(name, driverLicense);
+        drivers.add(newDriver);
 
         return newDriver;
     }
@@ -140,17 +142,16 @@ public class Main {
             System.out.print("Digite a opção: ");
             userChoice = scan.nextInt();
 
-            if(userChoice == 0) { // Se quiser adicionar motor, então retorna-se um objeto criado na função 'createEngine'
-                return createEngine(scan);
-            } else { // Senão retorna o motor relacionado com a opção que o usuário escolheu
+            if(userChoice == 0) {  // if the user wanna add a engine, so return the object from 'createEngine'
+                return createEngine(scan, engines);
+            } else { // else return the engine related to the option you choose
                 return engines.get(userChoice - 1);
             }
 
         } else {
             System.out.println("Você não possuí nenhum motor cadastrado. Adicione para continuar...");
-            engines.add(createEngine(scan));
-
-            return engines.get(0);
+        
+            return createEngine(scan, engines);
         }
     }
 
@@ -176,7 +177,7 @@ public class Main {
         if(userChoice == 0) {
             return null;
         } else if(userChoice == 1) {
-            return createDriver(scan);
+            return createDriver(scan, drivers);
         } else {
             driver = drivers.get(scan.nextInt() - 1);
             return driver;
@@ -190,7 +191,7 @@ public class Main {
                 System.out.printf("*** Carro [%d] ***\n", i + 1);
                 System.out.println(cars.get(i).toString());
 
-                if(i != cars.size() - 1) { // Último carro na lista
+                if(i != cars.size() - 1) { // Last element in the list
                     System.out.println();
                 }
             }
@@ -206,13 +207,12 @@ public class Main {
         if(!cars.isEmpty()) {
             showCars(cars);
     
-            System.out.print("Selecione o carro a alterar: ");
+            System.out.print("Digite a opção: ");
             carChoice = scan.nextInt();
     
             System.out.println("(1) Trocar motor");
             System.out.println("(2) Trocar/adicionar condutor");
     
-            System.out.println("Digite a opção: ");
             swapChoice = scan.nextInt();
     
             if(swapChoice == 1) {
