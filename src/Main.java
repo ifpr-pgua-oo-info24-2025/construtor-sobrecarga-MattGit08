@@ -36,6 +36,10 @@ public class Main {
                 case 4: 
                     showCars(cars);
                     break;
+
+                case 5:
+                    menuSwap(scan, cars, engines, drivers);
+                    break;
             
                 default:
                     System.out.println("Digite uma opção disponível.");;
@@ -54,6 +58,7 @@ public class Main {
         System.out.println("(2) Cadastrar motor");
         System.out.println("(3) Cadastrar condutor");
         System.out.println("(4) Listar carros");
+        System.out.println("(5) Trocar motor/condutor");
         System.out.println("(0) Sair");
         System.out.print("Digite a opção: ");
     }   
@@ -192,5 +197,32 @@ public class Main {
         } else {
             System.out.println("Nenhum carro está cadastrado.");
         }
+    }
+
+    public static void menuSwap(Scanner scan, ArrayList<Car> cars, ArrayList<Engine> engines, ArrayList<Driver> drivers) {
+        Integer carChoice;
+        Integer swapChoice;
+
+        if(!cars.isEmpty()) {
+            showCars(cars);
+    
+            System.out.print("Selecione o carro a alterar: ");
+            carChoice = scan.nextInt();
+    
+            System.out.println("(1) Trocar motor");
+            System.out.println("(2) Trocar/adicionar condutor");
+    
+            System.out.println("Digite a opção: ");
+            swapChoice = scan.nextInt();
+    
+            if(swapChoice == 1) {
+                cars.get(carChoice - 1).setEngine(selectEngine(scan, engines));
+            } else {
+                cars.get(carChoice - 1).setDriver(selectDriver(scan, drivers));
+            }
+        } else {
+            System.out.println("Não é possível alterar um carro, pois, não há carros cadastrados no momento.");
+        }
+
     }
 }
