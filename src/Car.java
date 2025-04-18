@@ -60,16 +60,16 @@ public class Car {
         this.engine = engine;
     }
 
-    // (this.attr  == null) ? "" : this.attr; 
-
     public String toString() {
-        return "Brand: " + this.brand + "\n" +
-                "Model: " + this.model + "\n" +
-                "Plate: " + this.plate + "\n" +
-                "Engine type: " + this.engine.getType() + "\n" +
-                "Engine potency: " + this.engine.getPotency() + "\n" +
-                "Driver name: " + this.driver.getName() + "\n" +
-                "Driver License: " + this.driver.getDriverLicense();
+        return "Marca: " + this.brand + "\n" +
+                "Modelo: " + this.model + "\n" +
+                "Placa: " + this.plate + "\n" +
+                "Tipo do motor " + this.engine.getType() + "\n" +
+                "Potência do motor: " + this.engine.getPotency() + "\n" +
+
+                ((this.driver == null) ? "" : 
+                "Nome do motorista: " + this.driver.getName() + "\n" +
+                "Carteira de motorista CNH: " + this.driver.getDriverLicense() + "\n");
         
     }
 }

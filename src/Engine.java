@@ -22,7 +22,7 @@ public class Engine {
     }
 
     public String toString() {
-        return "Type: " + type + "\n" +
-               "Potency: " + potency;
+        return "Tipo: " + type + "\n" +
+               "Potência: " + potency+ "\n";
     }
 }

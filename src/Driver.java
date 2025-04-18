@@ -22,7 +22,7 @@ public class Driver {
     }
 
     public String toString() {
-        return "Name: " + name + "\n" +
-               "Driver License: " + driverLicence;
+        return "Nome: " + name + "\n" +
+               "Carteira de motorista CNH: " + driverLicence + "\n";
     }
 }
