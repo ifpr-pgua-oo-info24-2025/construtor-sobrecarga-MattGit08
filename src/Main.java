@@ -18,6 +18,9 @@ public class Main {
             System.out.println();
     
             switch (userChoice) {
+                case 0:
+                    break;
+
                 case 1:
                     cars.add(createCar(scan, engines, drivers));
                     break;
@@ -28,9 +31,6 @@ public class Main {
     
                 case 3:
                     drivers.add(createDriver(scan));
-                    break;
-
-                case 4:
                     break;
             
                 default:
@@ -49,7 +49,7 @@ public class Main {
         System.out.println("(1) Cadastrar carro");
         System.out.println("(2) Cadastrar motor");
         System.out.println("(3) Cadastrar motorista");
-        System.out.println("(4) Sair");
+        System.out.println("(0) Sair");
         System.out.print("Digite a opção: ");
     }   
 
@@ -60,6 +60,7 @@ public class Main {
         String carPlate;
         Engine carEngine; 
         Driver carDriver;
+        Car newCar;
 
         System.out.print("- Marca: ");
         carBrand = scan.next();
@@ -72,7 +73,13 @@ public class Main {
 
         carEngine = selectEngine(scan, engines);
 
-        Car newCar = new Car(carBrand, carModel, carPlate, carEngine);
+        carDriver = selectDriver(scan, drivers);
+
+        if(carDriver == null) {
+            newCar = new Car(carBrand, carModel, carPlate, carEngine);
+        } else {
+            newCar = new Car(carBrand, carModel, carPlate, carEngine, carDriver);     
+        }
 
         return newCar;
     }
@@ -101,7 +108,7 @@ public class Main {
         System.out.print("- Nome: ");
         name = scan.next();
 
-        System.out.print("- Carteira de Motorista CNH: ");
+        System.out.print("- Carteira de Motorista (CNH): ");
         driverLicense = scan.nextInt();
 
         Driver newDriver = new Driver(name, driverLicense);
@@ -128,5 +135,28 @@ public class Main {
         }
 
         return engine;
+    }
+
+    // Function called to select a driver while creating a car
+    public static Driver selectDriver(Scanner scan, ArrayList<Driver> drivers) {
+        Driver driver;
+        Integer userChoice;
+
+        for (int i = 0; i < drivers.size(); i++) {
+            System.out.printf("- (%d) %s\n", i + 1, drivers.get(i).getName());
+        }
+
+        System.out.println("- (0) Continuar sem condutor");
+
+        System.out.print("Digite a opção: ");
+        userChoice = scan.nextInt();
+
+        if(userChoice == 0) {
+            return null;
+        } else {
+            driver = drivers.get(scan.nextInt() - 1);
+        }
+
+        return driver;
     }
 }
